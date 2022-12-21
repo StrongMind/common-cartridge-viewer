@@ -9,7 +9,6 @@ import {
   getOptionalTextContent
 } from "./utils";
 import AssignmentBody from "./AssignmentBody";
-import PreviewUnavailable from "./PreviewUnavailable";
 
 export default class Assignment extends Component {
   render() {
@@ -46,9 +45,6 @@ export default class Assignment extends Component {
 
     const submissionFormats = assignmentNode.querySelector("submission_types")
       .textContent;
-    const externalToolNode = doc.querySelector(
-      "external_tool_external_identifier"
-    );
     const gradableNode = assignmentNode.querySelector("gradable");
     const points =
       gradableNode &&
@@ -57,9 +53,7 @@ export default class Assignment extends Component {
         ? parseFloat(gradableNode.getAttribute("points_possible"))
         : 0;
 
-    return !!externalToolNode ? (
-      PreviewUnavailable()
-    ) : (
+    return (
       <AssignmentBody
         title={title}
         descriptionHtml={descriptionHtml}

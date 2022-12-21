@@ -5,7 +5,6 @@ import {
   generateFriendlyStringFromSubmissionFormats,
   getAssignmentSettingsHref
 } from "./utils";
-import PreviewUnavailable from "./PreviewUnavailable";
 
 export default class AssociatedContentAssignment extends Component {
   async componentDidMount() {
@@ -48,11 +47,7 @@ export default class AssociatedContentAssignment extends Component {
       );
     const descriptionHtml = doc.querySelector("body").innerHTML;
 
-    const isExternalTool = !!this.state.externalToolNode;
-
-    return isExternalTool ? (
-      PreviewUnavailable()
-    ) : (
+    return (
       <AssignmentBody
         title={title}
         descriptionHtml={descriptionHtml}

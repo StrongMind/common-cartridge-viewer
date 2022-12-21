@@ -9,6 +9,13 @@ test("Module Title is displayed", async t => {
   await t.expect(Selector(".Module h2").withText(`First Module`).exists).ok();
 });
 
+test("Module Titles links to reference", async t => {
+  await t
+    .click(Selector(".Module h2").withText(`First Module`))
+    .expect(Selector("h1").withText(`First Module`).exists)
+    .ok();
+});
+
 test("Assignment Items work", async t => {
   const IconAssignment = Selector(
     ".ExpandCollapseList-item:nth-of-type(1) svg[name='IconAssignment']"
@@ -99,7 +106,7 @@ test("External URL's work", async t => {
 });
 
 // fixing CM-599 will make this test pass. Skipping for now
-test.skip("External Tool URL's work", async t => {
+test("External Tool URL's work", async t => {
   const itemCss = ".ExpandCollapseList-item:nth-of-type(8)";
   const title = "First Module AnalyTics Beta External Tool";
   await t

@@ -90,6 +90,17 @@ export function getResourceHref(resource) {
   if (fileNodeHrefAttribute) {
     return fileNodeHrefAttribute;
   }
+  const basicLtiLinks = resource.getElementsByTagName(
+    "lticc:cartridge_basiclti_link"
+  );
+  if (basicLtiLinks) {
+    const launchUrl = basicLtiLinks[0].getElementsByTagName(
+      "lticc:launch_url"
+    )[0].textContent;
+    if (launchUrl) {
+      return launchUrl;
+    }
+  }
   return null;
 }
 

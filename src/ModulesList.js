@@ -22,13 +22,23 @@ export default class ModulesList extends Component {
     const moduleComponents = this.props.modules.map(
       ({ title, ref, items, identifier }, index) => {
         const itemComponents = items.map((item, index) => {
+          console.log(item);
           const isSubheading = item.href == null;
 
           if (isSubheading) {
             return (
               <li key={index} className="ExpandCollapseList-item">
                 <div className="ExpandCollapseList-item-inner">
-                  <h3>{item.title}</h3>
+                  <Link
+                    as={NavLink}
+                    to={{
+                      pathname: item.isModuleItem
+                        ? `module-items/${item.identifierref}`
+                        : `resources/${item.identifierref}`
+                    }}
+                  >
+                    <h3>{item.title}</h3>
+                  </Link>
                 </div>
               </li>
             );
@@ -145,7 +155,10 @@ export default class ModulesList extends Component {
             );
           }
 
-          if (item.type === resourceTypes.EXTERNAL_TOOL) {
+          if (
+            item.type === resourceTypes.EXTERNAL_TOOL ||
+            item.type === resourceTypes.BASIC_LTI
+          ) {
             return (
               <ExternalToolListItem
                 key={index}

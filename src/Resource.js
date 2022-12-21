@@ -24,7 +24,7 @@ import { getExtension, getResourceHref } from "./utils";
 import { Trans } from "@lingui/macro";
 import EmbeddedPreview from "./EmbeddedPreview";
 import ResourceUnavailable from "./ResourceUnavailable";
-import PreviewUnavailable from "./PreviewUnavailable";
+import ExternalToolResource from "./ExternalToolResource";
 
 export default class Resource extends Component {
   constructor(props) {
@@ -191,6 +191,17 @@ export default class Resource extends Component {
           type="text/html"
         />
       ),
+      [resourceTypes.BASIC_LTI]: (
+        <EntryDocument
+          getTextByPath={this.props.getTextByPath}
+          href={href}
+          render={doc => (
+            <ExternalToolResource {...this.props} resource={resource} />
+          )}
+          src={this.props.src}
+          type="text/html"
+        />
+      ),
       [resourceTypes.DISCUSSION_TOPIC]: (
         <EntryDocument
           getTextByPath={this.props.getTextByPath}
@@ -328,7 +339,7 @@ export default class Resource extends Component {
 
         <div tabIndex="0" aria-live="polite" style={{ clear: "both" }}>
           {isValidExternalToolResource ? (
-            <PreviewUnavailable />
+            <ExternalToolResource />
           ) : (
             this.renderResourceDocument(resource)
           )}
