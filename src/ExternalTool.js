@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import oauth from "oauth-sign";
 
 import iFrameResize from "iframe-resizer/js/iframeResizer";
+
 export default class ExternalTool extends Component {
   componentDidMount() {
     document.getElementById("ltiForm").submit();
@@ -9,7 +10,6 @@ export default class ExternalTool extends Component {
   }
 
   ltiParams() {
-    const oauth = require("oauth-sign");
     const action = this.props.launchUrl;
     const method = "POST";
     const timestamp = Math.round(Date.now() / 1000);
@@ -33,13 +33,12 @@ export default class ExternalTool extends Component {
       context_id: "contextId",
       roles: "Instructor"
     };
-    const signature = oauth.hmacsign(
+    params.oauth_signature = oauth.hmacsign(
       method,
       action,
       params,
       process.env.REACT_APP_LTI_SECRET
     );
-    params.oauth_signature = signature;
     return params;
   }
 
