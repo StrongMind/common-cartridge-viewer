@@ -5,8 +5,11 @@ import iFrameResize from "iframe-resizer/js/iframeResizer";
 
 export default class ExternalTool extends Component {
   componentDidMount() {
-    document.getElementById("ltiForm").submit();
-    iFrameResize({ log: true }, "#ltiFrame");
+    document.getElementById("ltiForm" + this.props.itemId).submit();
+    iFrameResize(
+      { log: true, checkOrigin: false },
+      "#ltiFrame" + this.props.itemId
+    );
   }
 
   ltiParams() {
@@ -47,22 +50,22 @@ export default class ExternalTool extends Component {
     return (
       <div>
         <form
-          id="ltiForm"
+          id={"ltiForm" + this.props.itemId}
           action={this.props.launchUrl}
           method="POST"
-          target="ltiFrame"
+          target={"ltiFrame" + this.props.itemId}
         >
           {Object.entries(params).map(([key, value]) => {
             return <input type="hidden" name={key} value={value} />;
           })}
         </form>
         <iframe
-          src={this.props.launchUrl}
+          src="about:blank"
           width="100%"
           height="500px"
           frameBorder="0"
-          name="ltiFrame"
-          id="ltiFrame"
+          name={"ltiFrame" + this.props.itemId}
+          id={"ltiFrame" + this.props.itemId}
           title="LTI Frame"
         />
       </div>

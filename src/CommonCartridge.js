@@ -638,6 +638,8 @@ export default class CommonCartridge extends Component {
                             <React.Fragment>
                               <ModulesList
                                 getTextByPath={this.getTextByPath}
+                                externalViewers={this.state.externalViewers}
+                                getUrlForPath={this.getUrlForPath}
                                 associatedContentAssignmentHrefsSet={
                                   this.state.associatedContentAssignmentHrefsSet
                                 }
@@ -645,6 +647,12 @@ export default class CommonCartridge extends Component {
                                 modules={this.state.modules}
                                 match={match}
                                 location={location}
+                                resourceMap={this.state.resourceMap}
+                                resourceIdsByHrefMap={
+                                  this.state.resourceIdsByHrefMap
+                                }
+                                rubrics={this.state.rubrics}
+                                showcaseResources={this.state.showcaseResources}
                               />
                             </React.Fragment>
                           )}

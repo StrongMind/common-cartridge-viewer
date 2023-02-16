@@ -339,7 +339,7 @@ export default class Resource extends Component {
 
         <div tabIndex="0" aria-live="polite" style={{ clear: "both" }}>
           {isValidExternalToolResource ? (
-            <ExternalToolResource />
+            <ExternalToolResource {...this.props} resource={resource} />
           ) : (
             this.renderResourceDocument(resource)
           )}
