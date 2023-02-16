@@ -90,12 +90,13 @@ export function getResourceHref(resource) {
   if (fileNodeHrefAttribute) {
     return fileNodeHrefAttribute;
   }
-  const basicLtiLinks = resource.getElementsByTagName(
-    "lticc:cartridge_basiclti_link"
+  const basicLtiLinks = resource.querySelectorAll(
+    "cartridge_basiclti_link,[lticc\\:cartridge_basiclti_link]"
   );
-  if (basicLtiLinks) {
-    const launchUrl = basicLtiLinks[0].getElementsByTagName(
-      "lticc:launch_url"
+
+  if (basicLtiLinks && basicLtiLinks.length > 0) {
+    const launchUrl = basicLtiLinks[0].querySelectorAll(
+      "launch_url,[lticc\\:launch_url]"
     )[0].textContent;
     if (launchUrl) {
       return launchUrl;
