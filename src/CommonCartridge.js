@@ -610,6 +610,8 @@ export default class CommonCartridge extends Component {
                                 location={location}
                                 rubrics={this.state.rubrics}
                                 contextTitle={this.state.title}
+                                consumerKey={this.props.consumerKey}
+                                consumerSecret={this.props.consumerSecret}
                               />
                             </React.Fragment>
                           ) : this.state.showcaseResources.length === 1 ? (
@@ -634,6 +636,8 @@ export default class CommonCartridge extends Component {
                                 location={location}
                                 rubrics={this.state.rubrics}
                                 contextTitle={this.state.title}
+                                consumerKey={this.props.consumerKey}
+                                consumerSecret={this.props.consumerSecret}
                               />
                             </React.Fragment>
                           ) : (
@@ -689,6 +693,8 @@ export default class CommonCartridge extends Component {
                             location={location}
                             rubrics={this.state.rubrics}
                             contextTitle={this.state.title}
+                            consumerKey={this.props.consumerKey}
+                            consumerSecret={this.props.consumerSecret}
                           />
                         </React.Fragment>
                       )}
@@ -721,6 +727,8 @@ export default class CommonCartridge extends Component {
                             isModuleItem={true}
                             rubrics={this.state.rubrics}
                             contextTitle={this.state.title}
+                            consumerKey={this.props.consumerKey}
+                            consumerSecret={this.props.consumerSecret}
                           />
                         </React.Fragment>
                       )}

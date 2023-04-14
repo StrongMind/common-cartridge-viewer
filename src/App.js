@@ -24,8 +24,22 @@ export default class App extends Component {
       cartridge: this.props.cartridge,
       file: null,
       history: { location: { pathname: "/" } },
-      featuredCartridges: []
+      featuredCartridges: [],
+      consumerKey: "",
+      consumerSecret: ""
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   selectCartridge = cartridge => {
@@ -154,7 +168,27 @@ export default class App extends Component {
                         server-side processing.
                       </Trans>
                     </p>
-
+                    <form>
+                      <label>
+                        Consumer Key:
+                        <input
+                          name="consumerKey"
+                          type="text"
+                          value={this.state.consumerKey}
+                          onChange={this.handleInputChange}
+                        />
+                      </label>
+                      <br />
+                      <label>
+                        Consumer Secret:
+                        <input
+                          name="consumerSecret"
+                          type="text"
+                          value={this.state.consumerSecret}
+                          onChange={this.handleInputChange}
+                        />
+                      </label>
+                    </form>
                     <Heading level="h2">
                       <Trans>Examples</Trans>
                     </Heading>
@@ -172,6 +206,8 @@ export default class App extends Component {
                     onHistoryChange={this.handleHistoryChange}
                     onPreviewFailure={this.handlePreviewFailure}
                     previewType={this.state.previewType}
+                    consumerKey={this.state.consumerKey}
+                    consumerSecret={this.state.consumerSecret}
                   />
                 </Router>
               </View>

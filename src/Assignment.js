@@ -70,6 +70,8 @@ export default class Assignment extends Component {
         attachments={attachments}
         rubric={rubric}
         contextTitle={this.props.contextTitle}
+        consumerKey={this.props.consumerKey}
+        consumerSecret={this.props.consumerSecret}
       />
     );
   }

@@ -22,7 +22,7 @@ export default class ExternalTool extends Component {
       lti_version: "LTI-1p0",
       resource_link_id: "resourceLinkId",
       // OAuth 1.0a Required Parameters
-      oauth_consumer_key: process.env.REACT_APP_LTI_KEY,
+      oauth_consumer_key: this.props.consumerKey,
       oauth_nonce: btoa(timestamp),
       oauth_signature_method: "HMAC-SHA1",
       oauth_timestamp: timestamp,
@@ -41,7 +41,7 @@ export default class ExternalTool extends Component {
       method,
       action,
       params,
-      process.env.REACT_APP_LTI_SECRET
+      this.props.consumerSecret
     );
     return params;
   }
