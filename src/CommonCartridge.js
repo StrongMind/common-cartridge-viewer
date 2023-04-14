@@ -77,7 +77,9 @@ export default class CommonCartridge extends Component {
           ? "cartridge" // fall back to cartridge
           : this.props.file != null
           ? "file"
-          : null
+          : null,
+      consumerKey: "",
+      consumerSecret: ""
     };
   }
 
@@ -352,7 +354,9 @@ export default class CommonCartridge extends Component {
       externalViewers,
       isLoaded: true,
       showcaseSingleResource,
-      rubrics
+      rubrics,
+      consumerKey: this.props.consumerKey,
+      consumerSecret: this.props.consumerSecret
     });
   }
 
@@ -610,8 +614,8 @@ export default class CommonCartridge extends Component {
                                 location={location}
                                 rubrics={this.state.rubrics}
                                 contextTitle={this.state.title}
-                                consumerKey={this.props.consumerKey}
-                                consumerSecret={this.props.consumerSecret}
+                                consumerKey={this.state.consumerKey}
+                                consumerSecret={this.state.consumerSecret}
                               />
                             </React.Fragment>
                           ) : this.state.showcaseResources.length === 1 ? (
@@ -636,8 +640,8 @@ export default class CommonCartridge extends Component {
                                 location={location}
                                 rubrics={this.state.rubrics}
                                 contextTitle={this.state.title}
-                                consumerKey={this.props.consumerKey}
-                                consumerSecret={this.props.consumerSecret}
+                                consumerKey={this.state.consumerKey}
+                                consumerSecret={this.state.consumerSecret}
                               />
                             </React.Fragment>
                           ) : (
@@ -693,8 +697,8 @@ export default class CommonCartridge extends Component {
                             location={location}
                             rubrics={this.state.rubrics}
                             contextTitle={this.state.title}
-                            consumerKey={this.props.consumerKey}
-                            consumerSecret={this.props.consumerSecret}
+                            consumerKey={this.state.consumerKey}
+                            consumerSecret={this.state.consumerSecret}
                           />
                         </React.Fragment>
                       )}
@@ -727,8 +731,8 @@ export default class CommonCartridge extends Component {
                             isModuleItem={true}
                             rubrics={this.state.rubrics}
                             contextTitle={this.state.title}
-                            consumerKey={this.props.consumerKey}
-                            consumerSecret={this.props.consumerSecret}
+                            consumerKey={this.state.consumerKey}
+                            consumerSecret={this.state.consumerSecret}
                           />
                         </React.Fragment>
                       )}

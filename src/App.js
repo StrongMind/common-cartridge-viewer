@@ -168,27 +168,47 @@ export default class App extends Component {
                         server-side processing.
                       </Trans>
                     </p>
-                    <form>
-                      <label>
-                        Consumer Key:
-                        <input
-                          name="consumerKey"
-                          type="text"
-                          value={this.state.consumerKey}
-                          onChange={this.handleInputChange}
-                        />
-                      </label>
-                      <br />
-                      <label>
-                        Consumer Secret:
-                        <input
-                          name="consumerSecret"
-                          type="text"
-                          value={this.state.consumerSecret}
-                          onChange={this.handleInputChange}
-                        />
-                      </label>
-                    </form>
+
+                    <Flex justifyItems="left" margin="medium none large">
+                      <form>
+                        <Heading level="h2">
+                          <Trans>Provide Consumer Key and Secret</Trans>
+                        </Heading>
+
+                        <p>
+                          <Trans>
+                            Some Common Cartridges which use Basic LTI links
+                            will require a consumer key and secret to be
+                            provided. If you have a consumer key and secret, you
+                            can provide them here.
+                          </Trans>
+                        </p>
+                        <FlexItem>
+                          <label>
+                            Consumer Key:
+                            <TextInput
+                              name="consumerKey"
+                              value={this.state.consumerKey}
+                              onChange={this.handleInputChange}
+                            />
+                          </label>
+                        </FlexItem>
+                        <FlexItem>
+                          <label>
+                            Consumer Secret:
+                            <TextInput
+                              name="consumerSecret"
+                              type="text"
+                              value={this.state.consumerSecret}
+                              onChange={this.handleInputChange}
+                            />
+                          </label>
+                        </FlexItem>
+                      </form>
+                    </Flex>
+
+                    <br />
+
                     <Heading level="h2">
                       <Trans>Examples</Trans>
                     </Heading>
