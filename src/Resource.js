@@ -109,27 +109,29 @@ export default class Resource extends Component {
     let Tip = withTooltip ? Tooltip : React.Fragment;
     return (
       <div className="print-link">
-        <Tip variant="inverse" tip="Print PDF" placement="print">
-          <button type="button" className="sm-btn sm-btn-tertiary">
-            <i className="fa-light fa-file-pdf" />
-            <p>Print</p>
-          </button>
-          {/*<Button*/}
-          {/*  to={{*/}
-          {/*    pathname: "#"*/}
-          {/*  }}*/}
-          {/*  variant="ghost"*/}
-          {/*  // as={RouterLink}*/}
-          {/*  // innerRef={this.setPreviousButton}*/}
-          {/*  // onClick={this.handlePreviousButtonPressed}*/}
-          {/*>*/}
-          {/*  <i className="fa-regular fa-file-pdf"></i>*/}
-          {/*  <Trans>Print</Trans>*/}
-
-          {/*</Button>*/}
-        </Tip>
+        <button
+          onClick={() => {
+            window.print();
+          }}
+          type="button"
+          className="sm-btn sm-btn-tertiary"
+        >
+          <i className="fa-light fa-file-pdf" />
+          <p>Print</p>
+        </button>
       </div>
     );
+  };
+
+  customPrintIframe = () => {
+    // Open new window to print the iframe content
+    // This is a workaround for the iframe not printing properly
+    const mywindow = window.open("", "PRINT", "height=800,width=800");
+    const ltiFrame = document.getElementById("ltiFrameundefined");
+    mywindow.document.write(ltiFrame.contentWindow.document.body.innerHTML);
+    mywindow.document.close();
+    mywindow.focus();
+    mywindow.print();
   };
 
   renderNextButton = (nextItem, withTooltip) => {
