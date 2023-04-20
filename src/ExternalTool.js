@@ -1,15 +1,51 @@
 import React, { Component } from "react";
 import oauth from "oauth-sign";
+import axios from "axios";
 
 import iFrameResize from "iframe-resizer/js/iframeResizer";
 
 export default class ExternalTool extends Component {
   componentDidMount() {
-    document.getElementById("ltiForm" + this.props.itemId).submit();
+    // document.getElementById("ltiForm" + this.props.itemId).submit();
     iFrameResize(
       { log: true, checkOrigin: false },
       "#ltiFrame" + this.props.itemId
     );
+
+    this.axiosRequest(this.props.launchUrl);
+  }
+
+  axiosRequest(url) {
+    const params = this.ltiParams();
+    const options = {
+      method: "POST",
+      url: url,
+      data: params,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+        Host: "courseware-lti.azurewebsites.net",
+        Pragma: "no-cache",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "cross-site",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1"
+      }
+    };
+
+    axios(options)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   ltiParams() {
@@ -57,8 +93,10 @@ export default class ExternalTool extends Component {
           target={"ltiFrame" + this.props.itemId}
         >
           {Object.entries(params).map(([key, value]) => {
-            return <input type="hidden" name={key} value={value} />;
+            return <input name={key} value={value} key={key} />;
           })}
+
+          <input type={"submit"} value={"Submit"} />
         </form>
         <iframe
           src="about:blank"
