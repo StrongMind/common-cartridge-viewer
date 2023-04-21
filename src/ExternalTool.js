@@ -11,8 +11,29 @@ export default class ExternalTool extends Component {
       { log: true, checkOrigin: false },
       "#ltiFrame" + this.props.itemId
     );
-
-    this.axiosRequest(this.props.launchUrl);
+    console.log("making request");
+    // process.env.COURSEWARE_LTI_URL = "https://courseware-lti.azurewebsites.net/LtiAmalgamator/launch/62ead9507f340323e891c6e2";
+    const bodyFormData = new FormData();
+    const params = this.ltiParams();
+    Object.entries(params).forEach(([key, value]) => {
+      console.log("Key:", key, "Value:", value);
+      bodyFormData.set(key, value);
+    });
+    console.log("bodyFormData:", bodyFormData);
+    const res = axios({
+      method: "post",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      url:
+        "https://courseware-lti.azurewebsites.net/LtiAmalgamator/launch/62ead9507f340323e891c6e2",
+      responseType: "document",
+      data: bodyFormData
+    })
+      .then(({ data }) => data)
+      .catch(err => {
+        console.log(err);
+      });
+    // look into: https://stackoverflow.com/questions/48848452/axios-post-request-is-complaining-about-cross-origin-but-curl-request-works-fin
+    console.log("response:", res);
   }
 
   axiosRequest(url) {

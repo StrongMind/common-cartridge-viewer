@@ -128,6 +128,10 @@ export default class Resource extends Component {
     // This is a workaround for the iframe not printing properly
     const mywindow = window.open("", "PRINT", "height=800,width=800");
     const ltiFrame = document.getElementById("ltiFrameundefined");
+    let iframeContent = ltiFrame.contentWindow.document.body.innerHTML.replace(
+      "<p",
+      "<p onclick='window.print();'"
+    );
     mywindow.document.write(ltiFrame.contentWindow.document.body.innerHTML);
     mywindow.document.close();
     mywindow.focus();
