@@ -114,19 +114,6 @@ export default class Resource extends Component {
             <i className="fa-light fa-file-pdf" />
             <p>Print</p>
           </button>
-          {/*<Button*/}
-          {/*  to={{*/}
-          {/*    pathname: "#"*/}
-          {/*  }}*/}
-          {/*  variant="ghost"*/}
-          {/*  // as={RouterLink}*/}
-          {/*  // innerRef={this.setPreviousButton}*/}
-          {/*  // onClick={this.handlePreviousButtonPressed}*/}
-          {/*>*/}
-          {/*  <i className="fa-regular fa-file-pdf"></i>*/}
-          {/*  <Trans>Print</Trans>*/}
-
-          {/*</Button>*/}
         </Tip>
       </div>
     );
