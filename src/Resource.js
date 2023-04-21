@@ -1,5 +1,5 @@
 import { basename } from "path";
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import {
   resourceTypes,
   DOCUMENT_PREVIEW_EXTENSIONS_SUPPORTED,
@@ -26,6 +26,7 @@ import EmbeddedPreview from "./EmbeddedPreview";
 import ResourceUnavailable from "./ResourceUnavailable";
 import PreviewUnavailable from "./PreviewUnavailable";
 import ExternalToolResource from "./ExternalToolResource";
+import ReactToPrint, { PrintContextConsumer } from "react-to-print";
 
 export default class Resource extends Component {
   constructor(props) {
@@ -110,10 +111,24 @@ export default class Resource extends Component {
     return (
       <div className="print-link">
         <Tip variant="inverse" tip="Print PDF" placement="print">
-          <button type="button" className="sm-btn sm-btn-tertiary">
-            <i className="fa-light fa-file-pdf" />
-            <p>Print</p>
-          </button>
+          {/*<button type="button" className="sm-btn sm-btn-tertiary">*/}
+          {/*  <i className="fa-light fa-file-pdf" />*/}
+          {/*  <p>Print</p>*/}
+          {/*</button>*/}
+          <ReactToPrint content={() => this.componentRef}>
+            <PrintContextConsumer>
+              {({ handlePrint }) => (
+                <button
+                  type="button"
+                  className="sm-btn sm-btn-tertiary"
+                  onClick={handlePrint}
+                >
+                  <i className="fa-light fa-file-pdf" />
+                  <p>Print</p>
+                </button>
+              )}
+            </PrintContextConsumer>
+          </ReactToPrint>
         </Tip>
       </div>
     );
@@ -352,7 +367,7 @@ export default class Resource extends Component {
     );
 
     return (
-      <React.Fragment>
+      <React.Fragment ref={el => (this.componentRef = el)}>
         {this.renderPrintButton(true)}
         {renderNextPrevButtons && nextPrevButtons(true)}
 

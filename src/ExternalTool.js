@@ -1,26 +1,19 @@
-import React, { useEffect, useRef } from "react";
+import React, { Component } from "react";
 import oauth from "oauth-sign";
+
 import iFrameResize from "iframe-resizer/js/iframeResizer";
 
-export default function ExternalTool(props) {
-  const itemId = props.itemId;
-  const launchUrl = props.launchUrl;
-  const contextTitle = props.contextTitle || "Missing Context Title";
-  const resourceLinkTitle =
-    props.resourceLinkTitle || "Missing Resource Link Title";
-  let ltiFormRef = useRef();
-  let ltiFrameRef = useRef();
+export default class ExternalTool extends Component {
+  componentDidMount() {
+    document.getElementById("ltiForm" + this.props.itemId).submit();
+    iFrameResize(
+      { log: true, checkOrigin: false },
+      "#ltiFrame" + this.props.itemId
+    );
+  }
 
-  useEffect(
-    () => {
-      ltiFormRef.current.submit();
-      iFrameResize({ log: true, checkOrigin: false }, ltiFrameRef.current);
-    },
-    [itemId]
-  );
-
-  function ltiParams() {
-    const action = launchUrl;
+  ltiParams() {
+    const action = this.props.launchUrl;
     const method = "POST";
     const timestamp = Math.round(Date.now() / 1000);
     const params = {
@@ -36,8 +29,9 @@ export default function ExternalTool(props) {
       oauth_version: "1.0",
       // Strongmind Custom Parameters
       user_id: 1,
-      context_title: contextTitle,
-      resource_link_title: resourceLinkTitle,
+      context_title: this.props.contextTitle || "Missing Context Title",
+      resource_link_title:
+        this.props.resourceLinkTitle || "Missing Resource Link Title",
       lis_person_name_family: "FamilyName",
       lis_person_name_given: "GivenName",
       context_id: "contextId",
@@ -52,31 +46,30 @@ export default function ExternalTool(props) {
     return params;
   }
 
-  const params = ltiParams();
-  const inputs = Object.entries(params).map(([key, value]) => (
-    <input key={key} type="hidden" name={key} value={value} />
-  ));
-
-  return (
-    <div>
-      <form
-        id={"ltiForm" + itemId}
-        ref={ltiFormRef}
-        action={launchUrl}
-        method="POST"
-        target={"ltiFrame" + itemId}
-      >
-        {inputs}
-      </form>
-      <iframe
-        src="about:blank"
-        width="100%"
-        height="500px"
-        frameBorder="0"
-        name={"ltiFrame" + itemId}
-        ref={ltiFrameRef}
-        title="LTI Frame"
-      />
-    </div>
-  );
+  render() {
+    const params = this.ltiParams();
+    return (
+      <div>
+        <form
+          id={"ltiForm" + this.props.itemId}
+          action={this.props.launchUrl}
+          method="POST"
+          target={"ltiFrame" + this.props.itemId}
+        >
+          {Object.entries(params).map(([key, value]) => {
+            return <input type="hidden" name={key} value={value} />;
+          })}
+        </form>
+        <iframe
+          src="about:blank"
+          width="100%"
+          height="500px"
+          frameBorder="0"
+          name={"ltiFrame" + this.props.itemId}
+          id={"ltiFrame" + this.props.itemId}
+          title="LTI Frame"
+        />
+      </div>
+    );
+  }
 }
