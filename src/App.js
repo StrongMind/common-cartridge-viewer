@@ -174,6 +174,9 @@ export default class App extends Component {
                     previewType={this.state.previewType}
                   />
                 </Router>
+                <div className="footer">
+                  <p>©2023 StrongMind, Inc. All Rights Reserved</p>
+                </div>
               </View>
             )}
           />

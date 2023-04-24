@@ -235,6 +235,32 @@ td {
   }
 }
 
+@media print {
+  nav,
+  .Resource--navButtons,
+  .print-link {
+    display: none !important;
+  }
+  .CommonCartridge--view {
+    display: flex !important;
+  }
+  .CommonCartridge--content {
+    flex-grow: 1 !important;
+  }
+  @page {
+    margin: 0;
+  }
+  .footer {
+    display: table-footer-group !important;
+    position: fixed !important;
+    bottom: 0 !important;
+  }
+}
+
+.footer {
+  display: none;
+}
+
 /*
   CSS Grid styles for the cartridge view
   and hamburger menu for mobile
